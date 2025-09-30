@@ -44,6 +44,35 @@
 				"url": "127.0.0.1:8000/api/logout"
 			},
 			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Bella Agustia",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "bella@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "terserahajadeh",
+							"type": "text"
+						}
+					]
+				},
+				"url": "127.0.0.1:8000/api/register"
+			},
+			"response": []
 		}
 	]
 }
