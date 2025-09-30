@@ -47,13 +47,29 @@
      document.getElementById('pay-button').onclick = function() {
         snap.pay('{{ $snapToken }}', {
             onSuccess: function(result) {
-                // Tangani jika pembayaran berhasil
+            fetch('delete-cart-after-transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    order_id: result.order_id
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Pembayaran berhasil! Keranjang dikosongkan.');
+                window.location.href = "/checkout"; // atau ke page sukses
+            })
+            .catch(error => {
+                console.error('Error clearing cart:', error);
+                alert('Pembayaran berhasil, tapi gagal membersihkan keranjang.');
+            });
             },
             onPending: function(result) {
-                // Tangani jika pembayaran pending
             },
             onError: function(result) {
-                // Tangani jika pembayaran gagal
             }
         });
     };

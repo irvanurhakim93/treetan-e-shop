@@ -167,4 +167,14 @@ class HomeController extends Controller
     return response()->json(['message' => 'Webhook received']);
 }
 
+    public function deleteCartAfterPay()
+    {
+         session()->forget('cart');
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Keranjang berhasil dikosongkan'
+        ]);
+    }
+
 }

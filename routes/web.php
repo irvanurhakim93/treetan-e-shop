@@ -29,3 +29,4 @@ Route::post('/add-to-cart/{id}',[HomeController::class,'addtoCart'])->name('addc
 Route::get('/delete-cart/{id}', [HomeController::class,'deleteCart'])->name('deletecart');
 Route::get('/carts', [HomeController::class,'cartPage'])->name('cartpage');
 Route::get('/checkout', [HomeController::class,'checkoutPage'])->name('checkoutpage');
+Route::post('delete-cart-after-transaction', [HomeController::class,'deleteCartAfterPay']);

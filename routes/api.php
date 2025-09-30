@@ -2,9 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\AuthApiController;
-use App\Http\Controllers\API\OrderApiController;
+use App\Http\Controllers\api\ProductApiController;
+use App\Http\Controllers\api\AuthApiController;
+use App\Http\Controllers\api\OrdersApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', [AuthApiController::class,'login']);
-Route::post('/logout', [AuthApiController::class,'logout']);
 
-Route::post('/webhook/midtrans', [HomeController::class, 'handleMidtransWebhook']);
+// Route::post('/webhook/midtrans', [HomeController::class, 'handleMidtransWebhook']);
 
 
-Route::middleware('verify.access.key')->group(function () {
-       Route::get('/products', [ProductController::class, 'index']);
-       Route::post('/checkout', [OrderApiController::class, 'checkout']);
+Route::middleware(['auth:sanctum', 'verify.access.key'])->group(function () {
+    Route::get('/products', [ProductApiController::class, 'index']);
+    Route::post('/checkout', [OrdersApiController::class, 'checkout']);
+    Route::post('/logout', [AuthApiController::class,'logout']); // Bisa juga dimasukkan sini
 });

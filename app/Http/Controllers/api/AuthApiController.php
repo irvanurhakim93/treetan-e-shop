@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class AuthApiController extends Controller
 {
-
-     public function register(Request $request)
+         public function register(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -46,24 +44,34 @@ class AuthApiController extends Controller
 
         $user = Auth::user();
 
+          // Sanctum Token
+        $token = $user->createToken('authToken')->plainTextToken;
+
         return response()->json([
             'status' => 'success',
             'message' => 'Login successful',
-            'user' => $user
+            'user' => $user,
+            'token' => $token
         ]);
     }
 
     public function logout(Request $request)
     {
-     $user = $request->user();
 
-    // Hapus semua token milik user
-    $user->tokens()->delete();
+          $user = $request->user();
 
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Logged out successfully'
-    ]);
+            if (!$user) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Unauthorized - no user found'
+                ], 401);
+            }
+
+        $request->user()->currentAccessToken()->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Logged out successfully'
+            ]);
     }
-
 }

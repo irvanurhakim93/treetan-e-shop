@@ -16,13 +16,16 @@ class VerifyAccessKey
     public function handle(Request $request, Closure $next)
     {
 
-         $accessKey = $request->header('access-key');
+         $accessKey = $request->header('X-Access-key');
 
         // Bisa simpan access key di .env agar mudah diatur
-        $validKey = env('ACCESS_KEY');
+        // $validKey = env('ACCESS_KEY');
 
-        if (!$accessKey || $accessKey !== $validKey) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+     if (!$accessKey || $accessKey !== config('services.api.access_key')) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid or missing access key',
+            ], 403); // 403 = Forbidden
         }
 
         return $next($request);

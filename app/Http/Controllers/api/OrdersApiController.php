@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Models\Order;
-use Midtrans\Config;
-use Midtrans\Snap;
 
-class OrderApiController extends Controller
+class OrdersApiController extends Controller
 {
-    public function checkout(Request $request)
+        public function checkout(Request $request)
     {
         $user = auth()->user();
 
@@ -73,5 +70,4 @@ class OrderApiController extends Controller
             'data' => $orders
         ]);
     }
-
 }

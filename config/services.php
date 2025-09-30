@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'api' => [
+        'access_key' => env('API_ACCESS_KEY', 'your-secret-key-here'),
+    ],
+
 ];
