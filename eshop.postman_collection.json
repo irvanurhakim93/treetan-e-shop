@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "dd6f2bd4-205e-488c-b533-79fe15038b29",
+		"name": "eshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26305115"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "tenxi@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "hipdutlives",
+							"type": "text"
+						}
+					]
+				},
+				"url": "127.0.0.1:8000/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"url": "127.0.0.1:8000/api/logout"
+			},
+			"response": []
+		}
+	]
+}
